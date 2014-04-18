@@ -1,1 +1,3 @@
-9
+The lenght of the Sequence = 1
+The Actual increasing sequence in inverted order
+10

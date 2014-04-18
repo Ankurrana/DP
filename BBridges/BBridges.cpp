@@ -46,31 +46,60 @@ inline lld scan2(){
  
 lld lis(lld *a,int l) { // a is the list of numbers on the upper side of the river 
  	lld dp[l+1];
+ 	lld previous[l+1];
+
  	dp[0] = 0;
  	dp[1] = 1;  //dp just denotes the lenght of the lis
- 	
+ 	previous[0] = 0;
+ 	previous[1] = 1;
+
  	/*
 		dp[i] denotes the maximum lenght of the increasing sequnce which ends at i-1 index
 		thus dp[0] = 0;
 			dp[1] = 1;
 	
  	*/
+		lld i,j,k;
+
 
 	for(lld i=1;i<=l;i++){
 		lld max = 0;
+		lld index = i;
 		for(lld j=1;j<i;j++){
-			if( (a[i-1] > a[j-1]) && ( dp[j]>max ) ){
+			if( (a[i-1] > a[j-1]) && (dp[j]>max) ){
 				max = dp[j];
+				index = j;
 			}
 		}
 		dp[i] = max+1;
-
+		previous[i] = index;
 	}	
 
 	lld ans = 0;
+	lld ans_index = 0;
 	iterate(l+1){
-		ans = max(ans,dp[i]);
+		if( dp[i] > ans ){
+			ans = dp[i];
+			ans_index = i;
+		}
 	}
+
+	k = ans ; 
+	printf("The lenght of the Sequence = %lld\n" , ans );
+
+	ps("The Actual increasing sequence in inverted order");
+
+	while(k--){
+
+		cout << a[ans_index -1] << endl;
+
+		ans_index = previous[ans_index];
+	}
+
+
+	 // cout << previous[ans_index];
+	
+
 
 	return ans;
 
@@ -78,9 +107,9 @@ lld lis(lld *a,int l) { // a is the list of numbers on the upper side of the riv
 int main(){
 	lld i,z,n,j,k,t,h,ans = 0;
 	lld b,c,d;
-	lld a[] = {1,2,3,4,5,6,7,8,9};
+	lld a[] = {10,9,8,7,6,5,4};
 
-	cout << lis(a,9) << endl ; 	
+	lis(a,7); 	
  
 	return 0;
 }
